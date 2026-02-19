@@ -2,7 +2,7 @@ import numpy as np
 import json
 import math
 
-def Lwr_CNOT_Synth(A, n, m) -> (np.ndarray(tuple(bool)), np.ndarray(bool)):
+def Lwr_CNOT_Synth(A, n, m):
 
     acts = []
 
@@ -61,10 +61,9 @@ def Lwr_CNOT_Synth(A, n, m) -> (np.ndarray(tuple(bool)), np.ndarray(bool)):
 
 
 
-def CNOT_Synth(input_file, m=None):
+def CNOT_Synth(matrix, m=None):
 
-    with open(input_file, "r") as f:
-        matrix = np.array(json.load(f))
+    matrix = np.array(matrix)
 
     if (m is None):
         m = math.ceil(np.log(matrix.shape[0]))

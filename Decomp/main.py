@@ -1,10 +1,10 @@
 import visualization as v
+import json
+import numpy as np
+import decomposition as dec
 
 def main():
-    input_file = 'matrix.json'
-    m = 2 
-    
-    v.visualization(input_file)
+
     return 0
     
 
