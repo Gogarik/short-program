@@ -1,6 +1,8 @@
 import numpy as np
 import json
 import galois
+from tqdm import tqdm
+
 
 GF = galois.GF(2)
 
@@ -20,5 +22,6 @@ def generate_data1(n, matrix_count):
     
     with open(f'random_matrices/matrix({n}x{n})_{matrix_count}.json', 'w') as f:
         json.dump(all_matrix.tolist(), f)
+
 
     

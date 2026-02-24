@@ -2,13 +2,11 @@ import numpy as np
 import json
 import math
 from itertools import combinations
+from tqdm import tqdm
 
 
-def find_min_CNOT_count(input_file):
+def find_min_CNOT_count(matrix: np.ndarray):
 
-    with open(input_file, "r") as f:
-        matrix = np.array(json.load(f))
-    
     m, n = matrix.shape
     CNOTS = list()
 
@@ -38,17 +36,17 @@ def find_min_CNOT_count(input_file):
                     else:
                         idx_pairs = np.array(list(combinations(range(len(S)), d - 1)))
 
-                    for l in range(len(idx_pairs)):
-                        flag = False
-                        vector = new_elem
-                        for index in idx_pairs[l]:
-                            vector = (vector + S[index]) % 2
-                            if (np.array_equal(vector % 2, matrix[k])):
-                                reduced_indexes[k] = True
-                                flag = True
+                        for l in range(len(idx_pairs)):
+                            flag = False
+                            vector = new_elem
+                            for index in idx_pairs[l]:
+                                vector = (vector + S[index]) % 2
+                                if (np.array_equal(vector % 2, matrix[k])):
+                                    reduced_indexes[k] = True
+                                    flag = True
+                                    break
+                            if flag:
                                 break
-                        if flag:
-                            break
 
                 
                 if (np.count_nonzero(reduced_indexes) > np.count_nonzero(final_reduced_indexes)):

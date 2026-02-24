@@ -66,7 +66,7 @@ def CNOT_Synth(matrix, m=None):
     matrix = np.array(matrix)
 
     if (m is None):
-        m = math.ceil(np.log(matrix.shape[0]))
+        m = math.ceil(np.log2(matrix.shape[0]))
     
     steps1, U = Lwr_CNOT_Synth(matrix, matrix.shape[0], m)
     UT = np.transpose(U)

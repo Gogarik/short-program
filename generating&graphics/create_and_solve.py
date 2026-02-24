@@ -15,7 +15,7 @@ def create1(
     Генерация случайных матриц
     """
 
-    for n in range(2, n_max):
+    for n in tqdm(range(2, n_max)):
         generate_data1(n=n, matrix_count=matrix_count)
     
     generate_avg_CNOTS(n_max=n_max, matrix_count=matrix_count, type='random')

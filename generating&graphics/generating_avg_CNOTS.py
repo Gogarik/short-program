@@ -1,5 +1,6 @@
 import sys
 import os
+from tqdm import tqdm
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.join(current_dir, '..')
@@ -16,11 +17,11 @@ def generate_avg_CNOTS(matrix_count, n_max, type='random', **kwargs):
     if type == 'random':
         folder = 'random_matrices'
 
-        for n in range(2, n_max):
+        for n in tqdm(range(2, n_max)):
             link = f'{folder}/matrix({n}x{n})_{matrix_count}.json'
 
             with open(link, 'r') as f:
-                all_matrices = np.array(json.load(f))  # implies all matrices at (n, k) by matrix_count
+                all_matrices = np.array(json.load(f))  # implies all matrices at n by matrix_count
 
             CNOTS = np.zeros(matrix_count, dtype=int)
 
@@ -40,7 +41,7 @@ def generate_avg_CNOTS(matrix_count, n_max, type='random', **kwargs):
 
         avg_CNOT_counts = np.zeros((k_max, n_max), dtype=int)
 
-        for n in range(2, n_max):
+        for n in tqdm(range(2, n_max)):
             for k in range(1, k_max):
                 link = f'{folder}/matrix({n}x{n})_{matrix_count}_{k}.json'
 
@@ -57,3 +58,6 @@ def generate_avg_CNOTS(matrix_count, n_max, type='random', **kwargs):
         
         with open(f'data_for_graphic2.json', 'w') as f:
             json.dump(avg_CNOT_counts.tolist(), f)
+
+if __name__ == '__main__':
+    generate_avg_CNOTS(n_max=120, matrix_count=30, type='random')
